@@ -1,0 +1,627 @@
+/* -----------------------------------
+   پایه + فونت + تم
+----------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Vazirmatn", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  direction: rtl;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* -----------------------------------
+   تم روشن (iOS 18)
+----------------------------------- */
+
+:root {
+  --bg: linear-gradient(135deg, #e0f2fe, #f5f3ff);
+  --text: #0f172a;
+
+  --panel: rgba(255, 255, 255, 0.7);
+  --panel-border: rgba(148, 163, 184, 0.4);
+  --panel-blur: blur(20px);
+
+  --input-bg: rgba(255, 255, 255, 0.85);
+  --input-border: rgba(148, 163, 184, 0.6);
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+
+  --accent-subject: #22c55e;
+  --accent-program: #f97316;
+  --accent-goal: #a855f7;
+}
+
+/* -----------------------------------
+   تم تاریک (iOS 18 Dark – روشن‌تر و رنگی)
+----------------------------------- */
+
+body[data-theme="dark"] {
+  --bg: radial-gradient(circle at top, #312e81, #0f172a);
+  --text: #f1f5f9;
+
+  --panel: rgba(30, 41, 59, 0.6);
+  --panel-border: rgba(148, 163, 184, 0.35);
+  --panel-blur: blur(22px);
+
+  --input-bg: rgba(15, 23, 42, 0.85);
+  --input-border: rgba(148, 163, 184, 0.5);
+
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+
+  --danger: #fb7185;
+  --danger-hover: #f97373;
+
+  --accent-subject: #4ade80;
+  --accent-program: #fdba74;
+  --accent-goal: #c4b5fd;
+}
+
+/* -----------------------------------
+   انیمیشن‌ها
+----------------------------------- */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* -----------------------------------
+   صفحه اصلی + ساعت
+----------------------------------- */
+
+.clock-box {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  text-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+/* -----------------------------------
+   ساختار صفحه
+----------------------------------- */
+
+.page-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.page-shell {
+  width: 100%;
+  max-width: 900px;
+  background: var(--panel);
+  border-radius: 22px;
+  border: 1px solid var(--panel-border);
+  backdrop-filter: var(--panel-blur);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+  animation: pop 0.4s ease;
+}
+
+/* -----------------------------------
+   نوار بالا
+----------------------------------- */
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* -----------------------------------
+   عنوان
+----------------------------------- */
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* -----------------------------------
+   پنل‌ها
+----------------------------------- */
+
+.panel {
+  background: var(--panel);
+  border-radius: 18px;
+  border: 1px solid var(--panel-border);
+  backdrop-filter: var(--panel-blur);
+  padding: 1.2rem;
+  animation: fadeIn 0.4s ease;
+}
+
+/* -----------------------------------
+   تقویم
+----------------------------------- */
+
+.calendar-panel {
+  padding: 1rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.calendar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.nav-btn {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text);
+  padding: 0.45rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.calendar-week {
+  display: contents;
+}
+
+.calendar-day-btn {
+  height: 45px;
+  border-radius: 14px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+  backdrop-filter: var(--panel-blur);
+}
+
+.calendar-day-btn:hover:not(.empty-day) {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.08);
+}
+
+.calendar-day-btn.empty-day {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+.today {
+  background: var(--primary) !important;
+  color: white !important;
+  box-shadow: 0 0 12px var(--primary);
+}
+
+/* -----------------------------------
+   گزارش کار امروز (زیر تقویم)
+----------------------------------- */
+
+.report-panel {
+  margin-top: 0.5rem;
+}
+
+.report-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.report-line {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+
+.report-subsection {
+  margin-top: 0.6rem;
+}
+
+.report-subsection h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.report-list {
+  margin: 0;
+  padding-right: 1.2rem;
+  font-size: 0.95rem;
+}
+
+.report-empty {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.share-btn {
+  margin-top: 0.8rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+  transition: 0.25s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+}
+
+/* -----------------------------------
+   صفحه روز
+----------------------------------- */
+
+.day-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}
+
+/* یادداشت */
+
+.note {
+  width: 100%;
+  min-height: 100px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: 0.25s ease;
+}
+
+.note:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+/* -----------------------------------
+   ساعت مطالعه کل روز
+----------------------------------- */
+
+.study-time-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.study-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.study-time-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.study-time-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.study-time-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.study-time-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  padding: 0.7rem;
+  font-size: 1.05rem;
+  transition: 0.25s ease;
+  width: 140px;
+}
+
+.study-time-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+/* -----------------------------------
+   دکمه‌ها
+----------------------------------- */
+
+button {
+  transition: 0.25s ease;
+}
+
+.add-btn,
+.theme-toggle,
+.delete-btn,
+.pill-btn {
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+}
+
+.add-btn:hover,
+.theme-toggle:hover,
+.delete-btn:hover,
+.pill-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+}
+
+.add-btn {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* دکمه تم */
+
+.theme-toggle {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+body[data-theme="dark"] .theme-toggle {
+  color: #f9fafb;
+}
+
+/* -----------------------------------
+   فرم افزودن برنامه
+----------------------------------- */
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  animation: fadeIn 0.3s ease;
+}
+
+/* -----------------------------------
+   کارت کار
+----------------------------------- */
+
+.task-card {
+  background: var(--panel);
+  border-radius: 16px;
+  border: 1px solid var(--panel-border);
+  padding: 1rem;
+  margin-bottom: 0.9rem;
+  backdrop-filter: var(--panel-blur);
+  animation: fadeIn 0.3s ease;
+}
+
+.task-card.editing {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* چیپ‌ها */
+
+.chip {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.chip-subject {
+  background: var(--accent-subject);
+}
+
+.chip-program {
+  background: var(--accent-program);
+}
+
+.chip-goal {
+  background: var(--accent-goal);
+}
+
+/* دکمه‌های ردیفی */
+
+.pill-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.pill-done {
+  background: #22c55e;
+  color: #022c22;
+}
+
+.pill-edit {
+  background: #e0f2fe;
+  color: #0f172a;
+}
+
+.pill-delete {
+  background: var(--danger);
+  color: white;
+}
+
+.pill-save {
+  background: var(--primary);
+  color: white;
+}
+
+/* حالت انجام شده */
+
+.task-done .chip {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* ورودی‌ها */
+
+.task-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 0.7rem;
+  font-size: 1rem;
+  transition: 0.25s ease;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+/* Badge */
+
+.status-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  color: #111827;
+}
+
+/* -----------------------------------
+   ریسپانسیو
+----------------------------------- */
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .task-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-actions {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--panel-border);
+}
+
+.footer strong {
+  color: var(--primary);
+}
